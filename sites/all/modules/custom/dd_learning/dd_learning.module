@@ -1,0 +1,92 @@
+<?php
+
+/**
+* Implements hook_help().
+*/
+function dd_learning_help($path, $arg) {
+switch ($path) {
+    // Main module help for the block module
+    case 'admin/help#dd_learning':
+      return '<p>' . t('Hello This Drupal Learning module which is very helpfull for drupal beginer.') . '</p>';
+  }
+}
+
+
+/**
+* Implements hook_block_info().
+*/
+function dd_learning_block_info() {
+  $blocks = array();
+  $blocks['drupal_learning'] = array('info' => t('Drupal Learning Block'));
+  return $blocks;
+}
+/**
+* Implements hook_block_view().
+*/
+function dd_learning_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {
+    case 'drupal_learning':
+      $block['subject'] = '';
+      $block['content'] = santosh_block();
+      break;
+  }
+  return $block;
+}
+function santosh_block() {
+$query = db_select('block', 'b')
+  ->condition('b.bid', 0, '<>')
+  ->fields('u', array('uid', 'name', 'status', 'created', 'access'))
+  ->range(0, 50);
+
+  $output = t('Hello Santosh Yadav');
+  return $output;
+}
+
+
+/**
+ * Implementation of hook_menu().
+ */
+function dd_learning_menu() {
+
+ /* $items = array();
+  $items['admin/config/santosh_yadav'] = array(
+ 'title' => 'Drupal Learning',
+ 'description' => 'Drupal Learning System.',
+ 'position' => 'left',
+ 'weight' => -20,
+ 'page callback' => 'system_admin_menu_block_page',
+ 'access callback' => 'user_access',
+ 'access arguments' => array('access administration pages'),
+ 'file' => 'system.admin.inc',
+ 'file path' => drupal_get_path('module', 'system'),
+);*/
+
+$items['santosh-test'] = array(
+    'title'            => 'Drupal Learning',
+    'description'      => 'Drupal Learning description',
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array('drupal_learning_settings'),
+    'access arguments' => array('access content'),
+    'type'             => MENU_NORMAL_ITEM,
+  );
+}
+
+
+/**
+ * our drupal_learning_settings form().
+ */
+
+function drupal_learning_settings($form,&$form_submit) {
+  $form['title'] = array(
+    '#title' => t('Give a title'),
+    '#type' => 'textfield',
+    '#required' => TRUE,
+  );
+  $form['submit'] = array(
+    '#value' => 'Submit',
+    '#type' => 'submit',
+    );
+  return $form;
+}
+

@@ -1,0 +1,14 @@
+name = Drupal learning
+description = Drupal learning module is use to do R&D for Drupal custom things.
+package = DD Learning
+version = VERSION
+core = 7.x
+php = 5.2
+configure = admin/config/santosh_yadav/setting
+
+; Information added by Drupal.org packaging script on 2015-06-12
+version = "7.3.7"
+project = "drupal_learning"
+datestamp = "1434096761"
+
+
